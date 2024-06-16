@@ -1,0 +1,14 @@
+C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\bin\Debug\net8.0\RNA_Perceptron.exe
+C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\bin\Debug\net8.0\RNA_Perceptron.deps.json
+C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\bin\Debug\net8.0\RNA_Perceptron.runtimeconfig.json
+C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\bin\Debug\net8.0\RNA_Perceptron.dll
+C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\bin\Debug\net8.0\RNA_Perceptron.pdb
+C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\obj\Debug\net8.0\RNA_Perceptron.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\obj\Debug\net8.0\RNA_Perceptron.AssemblyInfoInputs.cache
+C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\obj\Debug\net8.0\RNA_Perceptron.AssemblyInfo.cs
+C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\obj\Debug\net8.0\RNA_Perceptron.csproj.CoreCompileInputs.cache
+C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\obj\Debug\net8.0\RNA_Perceptron.dll
+C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\obj\Debug\net8.0\refint\RNA_Perceptron.dll
+C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\obj\Debug\net8.0\RNA_Perceptron.pdb
+C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\obj\Debug\net8.0\RNA_Perceptron.genruntimeconfig.cache
+C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\obj\Debug\net8.0\ref\RNA_Perceptron.dll
