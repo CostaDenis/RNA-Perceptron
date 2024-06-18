@@ -97,7 +97,7 @@ class Principal
             Console.WriteLine("Insira a Taxa de Aprendizagem: ");
             TaxaAprendizagem = float.Parse(Console.ReadLine());
 
-            WF = InteracaoPerceptron(X1, X2, X3, Bias, W1, W2, W3, WBias, Yk, TaxaAprendizagem, out QTDEIteracoes);
+            WF = IteracaoPerceptron(X1, X2, X3, Bias, W1, W2, W3, WBias, Yk, TaxaAprendizagem, out QTDEIteracoes);
 
             Console.WriteLine("\n----------------------------------------------------");
             Console.Write("\nPesos encontrados:");
@@ -179,7 +179,7 @@ class Principal
         }
     }
 
-    static float[] InteracaoPerceptron(float[] x1, float[] x2, float[] x3, float bias, float[] w1, float[] w2, float[] w3, float[] wbias, float[] yk, float TaxaAprendizagem, out int QtdeIteracao) 
+    static float[] IteracaoPerceptron(float[] x1, float[] x2, float[] x3, float bias, float[] w1, float[] w2, float[] w3, float[] wbias, float[] yk, float TaxaAprendizagem, out int QtdeIteracao) 
     {
         float fnet = 0.0f, y = 0.0f, diferenca = 0.0f;
         float DW1 = 0.0f, DW2 = 0.0f, DW3 = 0.0f, DWBias = 0.0f;
@@ -198,7 +198,7 @@ class Principal
             Console.WriteLine("{0,-6} {1,-6} {2,-6} {3,-8} {4,-6} {5,-6} {6,-6} {7,-10} {8,-8} {9,-10} {10,-8} {11,-10} {12,-8} {13,-8} {14,-8} {15,-10}", "X1", "X2", "X3", "Bias", "W1", "W2", "W3", "WBias", "V.E.", "f(Net)", "Y", "Diferença", "DW1", "DW2", "DW3", "DWBias");
             Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------------------");
 
-            //INTERAÇÃO
+            //ITERAÇÃO
             for (int i = 0; i < 3; i++)
             {
                 if (i == 0 && Iteracao != 0) {
