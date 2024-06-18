@@ -12,3 +12,4 @@ C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\obj\Debug\net8.0\refin
 C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\obj\Debug\net8.0\RNA_Perceptron.pdb
 C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\obj\Debug\net8.0\RNA_Perceptron.genruntimeconfig.cache
 C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\obj\Debug\net8.0\ref\RNA_Perceptron.dll
+C:\Users\denis\source\repos\RNA_Perceptron\RNA_Perceptron\obj\Debug\net8.0\RNA_Perceptron.sourcelink.json
