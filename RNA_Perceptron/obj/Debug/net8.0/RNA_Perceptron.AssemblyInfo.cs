@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RNA_Perceptron")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+afbce59e78c03e82c0ecaa7fe00db8dcae8142a3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fa04b9c07515cd358cef8b106ff96c384eebd4b6")]
 [assembly: System.Reflection.AssemblyProductAttribute("RNA_Perceptron")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RNA_Perceptron")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

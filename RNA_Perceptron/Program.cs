@@ -20,71 +20,114 @@ class Principal
         //Variáveis complementares
         int Bias;
         char resposta;
+        bool EncerrarPrograma = false;
+        //Peso Encontrado
+        float[] WF = new float[4];
+        //Total de Interações necessárias
+        int QTDEIteracoes = 0;
 
         Inicio();
 
         do
         {
-            for (int entrada = 0, auxiliar = 0; entrada <= 11; entrada++)
+            do
             {
-                if (entrada == 4 || entrada == 8 || entrada == 4) { auxiliar++; }
+                for (int entrada = 0, auxiliar = 0; entrada <= 11; entrada++)
+                {
+                    if (entrada == 4 || entrada == 8) { auxiliar++; }
 
-                Console.Write(InserirValores(entrada));
-                if (entrada == 0 || entrada == 4 || entrada == 8) {
-                    X1[auxiliar] = float.Parse(Console.ReadLine());
-                } else if (entrada == 1 || entrada == 5 || entrada == 9) {
-                    X2[auxiliar] = float.Parse(Console.ReadLine());
-                } else if (entrada == 2 || entrada == 6 || entrada == 10) {
-                    X3[auxiliar] = float.Parse(Console.ReadLine());
-                } else {
-                    Yk[auxiliar] = float.Parse(Console.ReadLine());
+                    Console.Write(InserirValores(entrada));
+                    if (entrada == 0 || entrada == 4 || entrada == 8) {
+                        X1[auxiliar] = float.Parse(Console.ReadLine());
+                    } else if (entrada == 1 || entrada == 5 || entrada == 9) {
+                        X2[auxiliar] = float.Parse(Console.ReadLine());
+                    }
+                    else if (entrada == 2 || entrada == 6 || entrada == 10) {
+                        X3[auxiliar] = float.Parse(Console.ReadLine());
+                    } else {
+                        Yk[auxiliar] = float.Parse(Console.ReadLine());
+                    }
                 }
-            }
-            TabelaEntradas(X1, X2, X3, Yk);
-            Console.WriteLine("\nDeseja cofirmar as suas entradas?[S/N]");
+                TabelaEntradas(X1, X2, X3, Yk);
+                Console.WriteLine("\nDeseja cofirmar as suas entradas?[S/N]");
+                resposta = char.Parse(Console.ReadLine());
+                Console.Clear();
+
+            } while (char.ToUpper(resposta) == 'N');
+
+            Console.WriteLine("Deseja utilizar o Bias?[S/N]");
             resposta = char.Parse(Console.ReadLine());
+            Bias = UsarBias(resposta);
+            resposta = ' ';
+
+            do {
+                if (WF[0] == 0.0f) {
+                    Console.WriteLine("Deseja inserir os primeiros pesos?[S/N]");
+                    Console.WriteLine("(Caso não queira, todos os pesos inicias irão valer 0,2)");
+                } else {
+                    Console.WriteLine("[P]Deseja inserir os primeiros pesos");
+                    Console.WriteLine("[R]Todos os pesos inicias irão valer 0,2");
+                    Console.WriteLine("[T]Utilizar pesos aprendidos anteriormente");
+                }
+                resposta = char.Parse(Console.ReadLine());
+            } while (!VerificarOpcaoPeso(char.ToUpper(resposta)));
+           
+
+            if (char.ToUpper(resposta) == 'N' || char.ToUpper(resposta) == 'R') {
+                W1[0] = 0.2f;
+                W2[0] = 0.2f;
+                W3[0] = 0.2f;
+                WBias[0] = 0.2f;
+            } else if (char.ToUpper(resposta) == 'S' || char.ToUpper(resposta) == 'P'){
+                Console.WriteLine("Digite o valor do W1: ");
+                W1[0] = float.Parse(Console.ReadLine());
+                Console.WriteLine("Digite o valor do W2: ");
+                W2[0] = float.Parse(Console.ReadLine());
+                Console.WriteLine("Digite o valor do W3: ");
+                W3[0] = float.Parse(Console.ReadLine());
+                Console.WriteLine("Digite o valor do WBias: ");
+                WBias[0] = float.Parse(Console.ReadLine());
+            } else {
+                W1[0] = WF[0];
+                W2[0] = WF[1];
+                W3[0] = WF[2];
+                WBias[0] = WF[3];
+            }
+
+            Console.WriteLine("Insira a Taxa de Aprendizagem: ");
+            TaxaAprendizagem = float.Parse(Console.ReadLine());
+
+            WF = InteracaoPerceptron(X1, X2, X3, Bias, W1, W2, W3, WBias, Yk, TaxaAprendizagem, out QTDEIteracoes);
+
+            Console.WriteLine("\n----------------------------------------------------");
+            Console.Write("\nPesos encontrados:");
+            foreach (float i in WF) {
+                Console.Write($"\t{i.ToString("F2")}");
+            }
+            Console.WriteLine("\nQuantidade de Iterações: " + QTDEIteracoes);
+            Console.WriteLine("\n----------------------------------------------------");
+
+
+            Console.WriteLine("\nDeseja testar novamente?[S/N]");
+            resposta = char.Parse(Console.ReadLine());
+            EncerrarPrograma = Questao(resposta);
             Console.Clear();
-
-        } while (resposta == 'N' || resposta == 'n');
-        
-        Console.WriteLine("Deseja utilizar o Bias?[S/N]");
-        resposta = char.Parse(Console.ReadLine());
-        Bias = UsarBias(resposta);
-        
-
-        Console.WriteLine("Deseja inserir os primeiros pesos?[S/N]");
-        Console.WriteLine("(Caso não queira, todos os pesos inicias irão valer 0,2)");
-        resposta = char.Parse(Console.ReadLine());
-
-        if(resposta == 'N' || resposta == 'n') {
-            W1[0] = 0.2f;
-            W2[0] = 0.2f;
-            W3[0] = 0.2f;
-            WBias[0] = 0.2f;
-        } else {
-            Console.WriteLine("Digite o valor do W1: ");
-            W1[0] = float.Parse(Console.ReadLine());
-            Console.WriteLine("Digite o valor do W2: ");
-            W2[0] = float.Parse(Console.ReadLine());
-            Console.WriteLine("Digite o valor do W3: ");
-            W3[0] = float.Parse(Console.ReadLine());
-            Console.WriteLine("Digite o valor do WBias: ");
-            WBias[0] = float.Parse(Console.ReadLine());
-        }
-
-        Console.WriteLine("Insira a Taxa de Aprendizagem: ");
-        TaxaAprendizagem = float.Parse(Console.ReadLine());
-
-        InteracaoPerceptron(X1, X2, X3, Bias, W1, W2, W3, WBias, Yk, TaxaAprendizagem);
-
+        } while(EncerrarPrograma);
+       
     }
 
-  
     static void Inicio()
     {
         Console.WriteLine("---------------------------------------------");
         Console.WriteLine("Inicio - RNA Perceptron");
         Console.WriteLine("---------------------------------------------");
+    }
+
+    static bool Questao(char r)
+    {
+        bool resultado;
+        resultado = (r == 'S' || r == 's') ? true : false;
+        return resultado; 
     }
 
     static string InserirValores(int x)
@@ -112,12 +155,14 @@ class Principal
 
     static int UsarBias(char c)
     {
-        if (c == 'S' || c == 's')
-        {
-            return 1;
-        }
+        int resultado = (c == 'S' || c == 's') ? 1 : 0;
+        return resultado;
+    }
 
-        return 0;
+    static bool VerificarOpcaoPeso(char c)
+    {
+        if (c == 'N' || c == 'R' || c == 'S' || c == 'T' || c == 'P') { return true; }
+        return false;
     }
 
     static void TabelaEntradas(float[] x1, float[] x2, float[] x3, float[] yk)
@@ -132,16 +177,14 @@ class Principal
             Console.WriteLine("{0,-10} {1,-10} {2,-10} {3,-10}", x1[i], x2[i], x3[i], yk[i]);
             Console.WriteLine("-------------------------------------");
         }
-        
     }
 
-    static void InteracaoPerceptron(float[] x1, float[] x2, float[] x3, float bias, float[] w1, float[] w2, float[] w3, float[] wbias, float[] yk, float TaxaAprendizagem) 
+    static float[] InteracaoPerceptron(float[] x1, float[] x2, float[] x3, float bias, float[] w1, float[] w2, float[] w3, float[] wbias, float[] yk, float TaxaAprendizagem, out int QtdeIteracao) 
     {
         float fnet = 0.0f, y = 0.0f, diferenca = 0.0f;
         float DW1 = 0.0f, DW2 = 0.0f, DW3 = 0.0f, DWBias = 0.0f;
-
         bool Continuar = true;
-        int Interacao = 0;
+        int Iteracao = 0;
 
         Console.Clear();
         while (Continuar)
@@ -150,7 +193,7 @@ class Principal
             Continuar = false;
 
             Console.WriteLine();
-            Console.WriteLine($"Tabela Interação número {Interacao + 1}");
+            Console.WriteLine($"Tabela Interação número {Iteracao + 1}");
             Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------------------");
             Console.WriteLine("{0,-6} {1,-6} {2,-6} {3,-8} {4,-6} {5,-6} {6,-6} {7,-10} {8,-8} {9,-10} {10,-8} {11,-10} {12,-8} {13,-8} {14,-8} {15,-10}", "X1", "X2", "X3", "Bias", "W1", "W2", "W3", "WBias", "V.E.", "f(Net)", "Y", "Diferença", "DW1", "DW2", "DW3", "DWBias");
             Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------------------");
@@ -158,8 +201,7 @@ class Principal
             //INTERAÇÃO
             for (int i = 0; i < 3; i++)
             {
-
-                if (i == 0 && Interacao != 0) {
+                if (i == 0 && Iteracao != 0) {
                     w1[i] = w1[i + 2] + DW1;
                     w2[i] = w2[i + 2] + DW2;
                     w3[i] = w3[i + 2] + DW3;
@@ -170,10 +212,10 @@ class Principal
                     w3[i] = w3[i - 1] + DW3;
                     wbias[i] = wbias[i - 1] + DWBias;
                 } else {
-                    w1[i] = w1[i] + DW1;
-                    w2[i] = w2[i] + DW2;
-                    w3[i] = w3[i] + DW3;
-                    wbias[i] = wbias[i] + DWBias;
+                    w1[i] += DW1;
+                    w2[i] += DW2;
+                    w3[i] += DW3;
+                    wbias[i] += DWBias;
                 }
 
                 //Fnet
@@ -193,16 +235,17 @@ class Principal
                 TotalDiferencas += Math.Abs(diferenca);
                 TotalDeltas += Math.Abs(DW1) + Math.Abs(DW2) + Math.Abs(DW3) + Math.Abs(DWBias);
 
-                Console.WriteLine("{0,-6} {1,-6} {2,-6} {3,-8} {4,-6} {5,-6} {6,-6} {7,-10} {8,-8} {9,-10} {10,-8} {11,-10} {12,-8} {13,-8} {14,-8} {15,-10}", x1[i], x2[i], x3[i], bias, w1[i].ToString("F2"), w2[i].ToString("F2"), w3[i].ToString("F2"), wbias[i].ToString("F2"), yk[i], fnet.ToString("F2"), y, diferenca, DW1.ToString("F2"), DW2.ToString("F2"), DW3.ToString("F2"), DWBias.ToString("F2"));
+                Console.WriteLine("{0,-6} {1,-6} {2,-6} {3,-8} {4,-6} {5,-6} {6,-6} {7,-10} {8,-8} {9,-10} {10,-8} {11,-10} {12,-8} {13,-8} {14,-8} {15,-10}", x1[i], x2[i], x3[i], bias, w1[i].ToString("F2"), w2[i].ToString("F2"), w3[i].ToString("F2"), wbias[i].ToString("F2"), yk[i], fnet.ToString("F2"), y, diferenca, Math.Abs(DW1).ToString("F2"), DW2.ToString("F2"), DW3.ToString("F2"), DWBias.ToString("F2"));
                 Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------------------");
 
-                if(TotalDiferencas != 0 || TotalDeltas != 0)
-                {
+                if(TotalDiferencas != 0 || TotalDeltas != 0) {
                     Continuar = true;
                 }
             }
-            Interacao++;
+            Iteracao++;
         }
-
+        float[] WF = new float[4] { w1[0], w2[0], w3[0], wbias[0] };
+        QtdeIteracao = Iteracao;
+        return WF;
     }
 }
